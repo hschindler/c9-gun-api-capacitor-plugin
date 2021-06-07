@@ -5,7 +5,7 @@ C9 Gun Devices API Plugin
 ## Install
 
 ```bash
-npm install c9-gun-api-capacitor-plugin
+npm install https://github.com/hschindler/c9-gun-api-capacitor-plugin.git
 npx cap sync
 ```
 ## API dependencies info
