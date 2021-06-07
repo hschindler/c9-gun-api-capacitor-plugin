@@ -23,6 +23,7 @@ npx cap sync
 * [`stopInventory()`](#stopinventory)
 * [`setOutputPower(...)`](#setoutputpower)
 * [`getOutputPower()`](#getoutputpower)
+* [`writeEPCToTagByEPC(...)`](#writeepctotagbyepc)
 * [`addListener(...)`](#addlistener)
 * [Interfaces](#interfaces)
 
@@ -121,6 +122,25 @@ getOutputPower() => any
 ```
 
 Sets RFID UHF output power.
+
+**Returns:** <code>any</code>
+
+**Since:** 1.0.0
+
+--------------------
+
+
+### writeEPCToTagByEPC(...)
+
+```typescript
+writeEPCToTagByEPC(options: { filteredTagEPC: string; newEPC: string; }) => any
+```
+
+Write EPC to Tag by selected EPC.
+
+| Param         | Type                                                     |
+| ------------- | -------------------------------------------------------- |
+| **`options`** | <code>{ filteredTagEPC: string; newEPC: string; }</code> |
 
 **Returns:** <code>any</code>
 
