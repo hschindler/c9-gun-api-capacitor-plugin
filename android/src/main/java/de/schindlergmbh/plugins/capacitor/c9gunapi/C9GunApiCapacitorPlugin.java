@@ -20,14 +20,19 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import cn.pda.serialport.SerialPort;
 import cn.pda.serialport.Tools;
 
-import com.handheld.UHF.UhfManager;
+
+import com.uhf.api.cls.Reader.TAGINFO;
+import com.uhf.api.cls.Reader;
+import com.handheld.uhfr.UHFRManager;
+
+
 
 @CapacitorPlugin(name = "C9GunApiCapacitorPlugin")
 public class C9GunApiCapacitorPlugin extends Plugin {
 
     private static final String TAG = C9GunApiCapacitorPlugin.class.getName();
     
-    private UhfManager _uhfManager;
+    private UHFRManager _uhfManager;
     private Boolean _readerInitialized;
     private String _errorLog;
     private boolean startFlag = false;
@@ -35,15 +40,8 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
     private String _readMode = "tid"; // tid / epc
 
-    private int _outputPower = 0; // 26, 24, 20, 18, 17, 16
-    /*
-     private static int WorkArea_China2 = 1;
-     private static int WorkArea_USA = 2;
-     private static int WorkArea_Europe = 3;
-     private static int WorkArea_China1 = 4;
-     private static int WorkArea_Korea = 6;
-    */
-    
+    private int _outputPower = 0; // 0-33
+
     private Thread _scanThread;
 
 
@@ -88,7 +86,9 @@ public class C9GunApiCapacitorPlugin extends Plugin {
             return;
         }
 
-        byte[] firmwareVersion = this._uhfManager.getFirmware();
+        String firmwareVersion = this._uhfManager.getHardware();
+
+        Log.d(TAG, "firmwareVersion");
 
         String returnVersion = "";
 
@@ -96,7 +96,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
             returnVersion = "get version is null";
         } else {
             Log.d(TAG, "firmwareVersion " + new String(firmwareVersion));
-            returnVersion = new String(firmwareVersion);
+            returnVersion = firmwareVersion;
         }     
         
         this.disposeUHFManager();
@@ -141,9 +141,9 @@ public class C9GunApiCapacitorPlugin extends Plugin {
     @PluginMethod(returnType = PluginMethod.RETURN_NONE)
     public void setOutputPower(PluginCall call) {
         // 0-30
-        String value = call.getString("value");
+        Integer value = call.getInt("value");
 
-        this._outputPower = Integer.parseInt(value);
+        this._outputPower = value; // Integer.parseInt(value);
 
         JSObject ret = new JSObject();
         ret.put("value", this._outputPower);
@@ -177,15 +177,38 @@ public class C9GunApiCapacitorPlugin extends Plugin {
         if (this._uhfManager == null) {
 
             try {
-                this._uhfManager = UhfManager.getInstance();
+                // UhfManager.Port = 13;
+
+                this._uhfManager = UHFRManager.getInstance();
                 
-                this._uhfManager.setWorkArea(UhfManager.WorkArea_Europe);
-                
-                if (this._outputPower > 0) {
-                    this._uhfManager.setOutputPower(this._outputPower);
-                } else {
-                    this._uhfManager.setOutputPower(26); // 16-26
+                if (this._uhfManager == null) {
+                    Log.d(TAG, "initializeUHFManager getInstance failed");
+                    return;
                 }
+
+                Reader.READER_ERR err =  this._uhfManager.setPower(30, 30);
+                Log.d(TAG, "initializeUHFManager setPower = " + err);
+
+                // Reader.Region_Conf.RG_EU2 , Reader.Region_Conf.RG_EU3
+                err = this._uhfManager.setRegion(Reader.Region_Conf.RG_EU3);
+                Log.d(TAG, "initializeUHFManager setWorkArea = " + err);
+
+                if (err== Reader.READER_ERR.MT_OK_ERR) {                   
+                    boolean powerResult = false;
+    
+                    if (this._outputPower > 0) {
+                        err = this._uhfManager.setPower(this._outputPower, 5);
+                        Log.d(TAG, "initializeUHFManager setOutputPower = " + err);
+                    } else {
+                        err = this._uhfManager.setPower(26, 5); // 0-33
+                        Log.d(TAG, "initializeUHFManager setOutputPower = " + err);
+                    }
+                } else {
+                    Log.d(TAG, "initializeUHFManager failed");
+                    this._uhfManager = null;
+                }               
+
+                
             } catch (Exception e) {
                 _errorLog = e.getMessage();
                 e.printStackTrace();
@@ -314,7 +337,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
         
         // private List<byte[]> epcList;
         // private ArrayList<String> tidList;
-
+        private List<TAGINFO> epcList;
         private ArrayList<String> dataList;
 
         @Override
@@ -333,8 +356,8 @@ public class C9GunApiCapacitorPlugin extends Plugin {
             initializeUHFManager();
 
             if (_uhfManager == null) {
-                Log.d(TAG, "InventoryThread failed creating uhfManager");
-                savedCall.reject("InventoryThread failed creating uhfManager");
+                Log.d(TAG, "InventoryThread failed creating UhfManager");
+                savedCall.reject("InventoryThread failed creating UhfManager");
                 return;
             }
 
@@ -346,52 +369,61 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
                 if (_uhfManager != null) {
 
+                    Log.d(TAG, "starting inventoryRealTime...");
+
+                    //epcList = _uhfManager.tagInventoryRealTime(); 
+
                     if ("tid".equals(_readMode)) {
 
                         Log.d(TAG, "ReadMode is TID...");
 
+                        epcList = _uhfManager.tagEpcTidInventoryByTimer((short) 50);
+
                         try {
-                            dataList = new ArrayList<String>();
 
-                            byte[] data = _uhfManager.readFrom6C(UhfManager.TID, 0, 6,
-                                    new byte[4]);
-
-                            if (data != null && data.length > 1) { 
-
-                                String dataStr = Tools.Bytes2HexString(data, data.length);
-                                Log.d(TAG, "TID found:" + dataStr);
-
-                                dataList.add(dataStr);
+                            if (epcList != null && !epcList.isEmpty()) {
                                 
-                            } else {
-                                
-                                if (data != null) {
-                                    Log.d(TAG, "GetTID Read data fail,Error code: " + (data[0] & 0xff));
-                                    return;
+                                Log.d(TAG, "Found Tags...");
+
+                                dataList = new ArrayList<String>();
+
+                                for (TAGINFO tagInfo : epcList) {
+                                    byte[] epcdata = tagInfo.EpcId;
+                    
+                                    String tidStr = Tools.Bytes2HexString(tagInfo.EmbededData, tagInfo.EmbededDatalen);
+                                    
+                                    dataList.add(tidStr);
+                                    
                                 }
 
-                                Log.d(TAG, "GetTID Read data fail");
+                            } else {
+                                if (epcList == null) {
+                                    Log.e(TAG, "epcList is null" );
+                                } else {
+                                    Log.e(TAG, "epcList size + " + epcList.size() );
+                                }
+                                
                             }
+
                         } catch (Exception ex) {
                             Log.e(TAG, "GetTID Exception: " + ex.getMessage());
                             savedCall.reject("Fehler-GetTID: " + ex.getMessage());
                         }
 
                     } else if ("epc".equals(_readMode)) {
-                        List<byte[]> epcList;
 
                         try {
 
                             dataList = new ArrayList<String>();
 
-                            epcList = _uhfManager.inventoryRealTime(); 
+                            epcList = _uhfManager.tagInventoryByTimer((short) 50);
 
                             if (epcList != null && !epcList.isEmpty()) {
 
-                                for (byte[] epc : epcList) {
-
-                                    String epcStr = Tools.Bytes2HexString(epc,
-                                            epc.length);
+                                for (TAGINFO tagInfo : epcList) {
+                                    byte[] epcdata = tagInfo.EpcId;
+                                    String epcStr = Tools.Bytes2HexString(epcdata,
+                                    epcdata.length);
 
                                     dataList.add(epcStr);        
                                 }
@@ -416,7 +448,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
                     }
                 }
 
-                // epcList = null;
+                epcList = null;
                 dataList = null;
 
                 try {
@@ -436,6 +468,71 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
 
         } // run
+
+
+
+
+        // // first select tag by epc
+        // private byte[] GetTID(PluginCall call) {
+        //     // Parameters: int memBank store RESEVER zone 0, EPC District 1, TID District 2,
+        //     // USER District 3;
+        //     // int startAddr starting address (not too large, depending on the size of the
+        //     // data area);
+        //     // int length read data length, in units of word (1word = 2bytes); byte []
+        //     // accessPassword password 4 bytes
+        //     int tidLength = 6; // in word 1 word = 2 byte
+        //     // byte[] tid; // = new byte[tidLength*2];
+
+        //     if (_uhfManager == null) {
+        //         return null;
+        //     }
+
+        //     Log.d(TAG, "GetTID");
+
+        //     try {
+        //         byte[] pw = new byte[4];
+        //         byte[] tid = _uhfManager.readFrom6C(2, 0, tidLength, pw);
+
+        //         if (tid != null && tid.length > 1) {
+
+        //             Log.d(TAG, "GetTID - " + tid);
+        //             return tid;
+
+        //         } else {
+        //             if (tid != null) {
+        //                 // tid has error code
+
+        //                 // try again with small tid (8 byte)
+        //                 tidLength = 4;
+        //                 tid = _uhfManager.readFrom6C(2, 0, tidLength, pw);
+
+        //                 if (tid != null && tid.length > 1) {
+        //                     return tid;
+        //                 } else {
+        //                     // tid has error code
+        //                     if (tid != null) {
+        //                         Log.d(TAG, "Fehler-GetTID tid error code: " + Tools.Bytes2HexString(tid, tid.length));
+        //                         call.reject("Fehler-GetTID tid error code: " + Tools.Bytes2HexString(tid, tid.length));
+        //                     } else {
+        //                         Log.d(TAG, "Fehler-GetTID tid no error code");
+        //                         call.reject("Fehler-GetTID tid no error code");
+        //                     }                            
+
+        //                     return null;
+        //                 }
+        //             }
+
+        //             return null;
+        //         }
+
+        //     } catch (Exception ex) {
+
+        //         call.reject("Fehler-GetTID: " + ex.getMessage());
+
+        //     }
+
+        //     return null;
+        // }
 
     } // end class InventoryThread
 }

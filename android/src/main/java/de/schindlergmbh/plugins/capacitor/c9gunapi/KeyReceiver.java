@@ -39,7 +39,8 @@ class KeyReceiver extends BroadcastReceiver {
 
         if (keyDown) {
             Log.d(TAG, "keyCode = " + keyCode);
-            Log.d(TAG, "KeyEvent.KEYCODE_F3 = " + KeyEvent.KEYCODE_F3);
+            // Log.d(TAG, "KeyEvent.KEYCODE_F4 = " + KeyEvent.KEYCODE_F4);
+            // Log.d(TAG, "KeyEvent.KEYCODE_F5 = " + KeyEvent.KEYCODE_F5);
             // this.showToast("KeyReceiver:keyCode = " + keyCode);
 
             switch (keyCode) {
@@ -50,17 +51,15 @@ class KeyReceiver extends BroadcastReceiver {
 
                     break;
                 case KeyEvent.KEYCODE_F3:
-                   
-                        this._onReceiveCallback.onReceiveCallback();
-                        // this.showToast("scan clicked");
-                        // PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "scan clicked");
-                        // pluginResult.setKeepCallback(true);
-                        // _scanKeyCallBackContext.sendPluginResult(pluginResult);
-                   
-
                     break;
+                
                 case KeyEvent.KEYCODE_F4:
-
+                    this._onReceiveCallback.onReceiveCallback();
+                    // this.showToast("scan clicked");
+                    // PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "scan clicked");
+                    // pluginResult.setKeepCallback(true);
+                    // _scanKeyCallBackContext.sendPluginResult(pluginResult);
+        
                     break;
                 case KeyEvent.KEYCODE_F5:
 

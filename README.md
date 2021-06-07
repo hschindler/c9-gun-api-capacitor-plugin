@@ -64,14 +64,14 @@ Gets RFID UHF reader firmware.
 ### startInventory(...)
 
 ```typescript
-startInventory(value: string) => any
+startInventory(options: { value: string; }) => any
 ```
 
 Starts RFID UHF inventory.
 
-| Param       | Type                |
-| ----------- | ------------------- |
-| **`value`** | <code>string</code> |
+| Param         | Type                            |
+| ------------- | ------------------------------- |
+| **`options`** | <code>{ value: string; }</code> |
 
 **Returns:** <code>any</code>
 
@@ -98,14 +98,14 @@ Stops RFID UHF inventory.
 ### setOutputPower(...)
 
 ```typescript
-setOutputPower(value: number) => any
+setOutputPower(options: { value: number; }) => any
 ```
 
 Sets RFID UHF output power.
 
-| Param       | Type                |
-| ----------- | ------------------- |
-| **`value`** | <code>number</code> |
+| Param         | Type                            |
+| ------------- | ------------------------------- |
+| **`options`** | <code>{ value: number; }</code> |
 
 **Returns:** <code>any</code>
 

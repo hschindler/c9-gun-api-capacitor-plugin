@@ -17,7 +17,7 @@ export interface C9GunApiCapacitorPlugin {
   *
   * @since 1.0.0
   */
-  startInventory(value: string): Promise<{ uhfData: string[] }>;
+  startInventory(options: { value: string }): Promise<{ uhfData: string[] }>;
 
   /**
   * Stops RFID UHF inventory.
@@ -31,7 +31,7 @@ export interface C9GunApiCapacitorPlugin {
   *
   * @since 1.0.0
   */
-  setOutputPower(value: number): Promise<void>;
+  setOutputPower(options: { value: number }): Promise<void>;
 
   /**
  * Sets RFID UHF output power.
