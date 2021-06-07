@@ -33,6 +33,11 @@ export class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9GunApiCap
     this.throwUnimplementedError();
   }
 
+  async writeEPCToTagByEPC(): Promise<boolean> {
+    // logic here
+    this.throwUnimplementedError();
+  }
+
 
   private throwUnimplementedError(): never {
     throw this.unimplemented('Not implemented on web.');

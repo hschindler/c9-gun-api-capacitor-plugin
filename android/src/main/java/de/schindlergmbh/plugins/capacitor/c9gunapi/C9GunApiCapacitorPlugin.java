@@ -158,6 +158,54 @@ public class C9GunApiCapacitorPlugin extends Plugin {
         call.resolve(ret);
     }
 
+    @PluginMethod()
+    public void writeEPCToTagByEPC(PluginCall call) {
+        Log.d(TAG, "writeEPCToTagByEPC");
+        
+        String filteredTagEPC = call.getString("filteredTagEPC", "");
+        String newEPC = call.getString("newEPC", "");
+
+        Log.d(TAG, "writeEPCToTagByEPC filteredTagEPC=" + filteredTagEPC.trim());
+        Log.d(TAG, "writeEPCToTagByEPC newEPC=" + newEPC.trim());
+
+        this.initializeUHFManager();
+
+        byte[] epcBytes = Tools.HexString2Bytes(filteredTagEPC.trim()) ;
+		byte[] accessBytes = Tools.HexString2Bytes("00000000") ;
+
+        byte[] newEPCBytes = null ;
+
+		try {
+			newEPCBytes = Tools.HexString2Bytes(newEPC.trim()) ;
+			if(newEPCBytes.length%2 != 0){
+                call.reject("Write EPC to Tag failed! New EPC has wrong format!" );
+				return ;
+			}
+		}catch (Exception e){
+            call.reject("Write EPC to Tag failed! New EPC has wrong format!" );
+			return;
+		}
+
+        Reader.READER_ERR err =  this._uhfManager.setPower(20, 20);
+
+        if (err != Reader.READER_ERR.MT_OK_ERR) {
+            call.reject("Write EPC to Tag failed! Set write power failed!" );
+			return;
+        }
+
+        // err = this._uhfManager.writeTagEPC(newEPCBytes, accessBytes, (short) 1000);
+        err = this._uhfManager.writeTagEPCByFilter(newEPCBytes, accessBytes, (short)1000, epcBytes, 1, 2, true);
+
+        if (err == Reader.READER_ERR.MT_OK_ERR) {
+            JSObject ret = new JSObject();
+            ret.put("value", true);
+            call.resolve(ret);
+        } else {
+            Log.e(TAG, "Write EPC to Tag failed!" + err);
+            call.reject("Write EPC to Tag failed!");
+        }
+
+    }
 
     private void dispose() {
         this.StopInventoryThread();
@@ -197,10 +245,10 @@ public class C9GunApiCapacitorPlugin extends Plugin {
                     boolean powerResult = false;
     
                     if (this._outputPower > 0) {
-                        err = this._uhfManager.setPower(this._outputPower, 5);
+                        err = this._uhfManager.setPower(this._outputPower, 20);
                         Log.d(TAG, "initializeUHFManager setOutputPower = " + err);
                     } else {
-                        err = this._uhfManager.setPower(26, 5); // 0-33
+                        err = this._uhfManager.setPower(26, 20); // 0-33
                         Log.d(TAG, "initializeUHFManager setOutputPower = " + err);
                     }
                 } else {
@@ -441,15 +489,9 @@ public class C9GunApiCapacitorPlugin extends Plugin {
                     savedCall.reject("UhfManager is not initialized!");
                 }                
 
-                if ((dataList != null) && (!dataList.isEmpty())) {
-                    if (dataList.size() > 0) {
-                        returnCurrentTIDs(dataList, savedCall);
-                        startFlag = false;
-                    }
-                }
-
+                startFlag = false;
+                
                 epcList = null;
-                dataList = null;
 
                 try {
                     Thread.sleep(40);
@@ -466,6 +508,13 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
             disposeUHFManager();
 
+            if ((dataList != null) && (!dataList.isEmpty())) {
+                if (dataList.size() > 0) {
+                    returnCurrentTIDs(dataList, savedCall);
+                }
+
+                dataList = null;
+            }
 
         } // run
 

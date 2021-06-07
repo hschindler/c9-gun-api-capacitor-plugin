@@ -34,11 +34,18 @@ export interface C9GunApiCapacitorPlugin {
   setOutputPower(options: { value: number }): Promise<void>;
 
   /**
- * Sets RFID UHF output power.
- *
- * @since 1.0.0
- */
+  * Sets RFID UHF output power.
+  *
+  * @since 1.0.0
+  */
   getOutputPower(): Promise<number>;
+
+  /**
+  * Write EPC to Tag by selected EPC.
+  *
+  * @since 1.0.0
+  */
+  writeEPCToTagByEPC(options: { filteredTagEPC: string, newEPC: string }): Promise<boolean>;
 
 
   /**
