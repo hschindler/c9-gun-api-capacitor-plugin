@@ -37,6 +37,42 @@
         "slug": "getfirmware"
       },
       {
+        "name": "startBarcodeInventory",
+        "signature": "(options: { value: string; }) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "any",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Starts Barcode inventory.",
+        "complexTypes": [],
+        "slug": "startbarcodeinventory"
+      },
+      {
+        "name": "stopBarcodeInventory",
+        "signature": "() => any",
+        "parameters": [],
+        "returns": "any",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Stops Barcode inventory.",
+        "complexTypes": [],
+        "slug": "stopbarcodeinventory"
+      },
+      {
         "name": "startInventory",
         "signature": "(options: { value: string; }) => any",
         "parameters": [
@@ -131,12 +167,12 @@
       },
       {
         "name": "addListener",
-        "signature": "(eventName: 'scanButtonPressed', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle",
+        "signature": "(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle",
         "parameters": [
           {
             "name": "eventName",
             "docs": "",
-            "type": "\"scanButtonPressed\""
+            "type": "\"scanButtonPressed\" | \"barcodeReceived\""
           },
           {
             "name": "listenerFunc",

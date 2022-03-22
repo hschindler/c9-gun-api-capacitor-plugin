@@ -17,6 +17,14 @@ class C9GunApiCapacitorPluginWeb extends core.WebPlugin {
         // logic here
         this.throwUnimplementedError();
     }
+    async startBarcodeInventory() {
+        // logic here
+        this.throwUnimplementedError();
+    }
+    async stopBarcodeInventory() {
+        // logic here
+        this.throwUnimplementedError();
+    }
     async startInventory() {
         // logic here
         this.throwUnimplementedError();

@@ -15,6 +15,22 @@ export interface C9GunApiCapacitorPlugin {
         firmware: string;
     }>;
     /**
+    * Starts Barcode inventory.
+    *
+    * @since 1.1.0
+    */
+    startBarcodeInventory(options: {
+        value: string;
+    }): Promise<{
+        barcodeData: string;
+    }>;
+    /**
+    * Stops Barcode inventory.
+    *
+    * @since 1.1.0
+    */
+    stopBarcodeInventory(): Promise<boolean>;
+    /**
     * Starts RFID UHF inventory.
     *
     * @since 1.0.0
@@ -58,5 +74,5 @@ export interface C9GunApiCapacitorPlugin {
      *
      * @since 1.0.0
      */
-    addListener(eventName: 'scanButtonPressed', listenerFunc: ScanButtonPressedListener): Promise<PluginListenerHandle> & PluginListenerHandle;
+    addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener): Promise<PluginListenerHandle> & PluginListenerHandle;
 }
