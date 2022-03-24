@@ -152,6 +152,11 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
         Log.d(TAG, "setBarcodeTimeout - " + value);
 
+        if (this._zebraScanner == null) {
+            Log.d(TAG, "createReceiver");
+            this._zebraScanner = new Zebra2DScanner(getContext(), bridge);
+        }
+
         if (this._zebraScanner != null & value != null) {
             if (value >= 1000 & value <= 10000) {
                 this._zebraScanner.setTimeout(value.toString());
