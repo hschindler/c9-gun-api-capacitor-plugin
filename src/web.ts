@@ -23,6 +23,10 @@ export class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9GunApiCap
     this.throwUnimplementedError();
   }
 
+  async setBarcodeTimeout(): Promise<void> {
+    this.throwUnimplementedError();
+  }
+
   async startInventory(): Promise<{ uhfData: string[] }> {
     // logic here
     this.throwUnimplementedError();

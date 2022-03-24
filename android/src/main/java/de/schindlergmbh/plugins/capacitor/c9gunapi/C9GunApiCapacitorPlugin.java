@@ -11,7 +11,6 @@ import java.util.Optional;
 import android.util.Log;
 import android.content.IntentFilter;
 
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -123,7 +122,6 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
             this._zebraScanner.scan(call.getCallbackId());
 
-
         }
     }
 
@@ -136,10 +134,31 @@ public class C9GunApiCapacitorPlugin extends Plugin {
             this._zebraScanner.stopScan();
         }
 
-        JSObject ret = new JSObject();
-        ret.put("value", result);
-        call.resolve(ret);
+        call.resolve();
 
+    }
+
+    /**
+     * Set scan timeout
+     * 
+     * @param timeout Value:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000
+     */
+    @PluginMethod(returnType = PluginMethod.RETURN_NONE)
+    public void setBarcodeTimeout(PluginCall call) {
+
+        Log.d(TAG, "setBarcodeTimeout");
+
+        Integer value = call.getInt("timeout", 5000);
+
+        Log.d(TAG, "setBarcodeTimeout - " + value);
+
+        if (this._zebraScanner != null & value != null) {
+            if (value >= 1000 & value <= 10000) {
+                this._zebraScanner.setTimeout(value.toString());
+            }
+        }
+
+        call.resolve();
     }
 
     @PluginMethod()
@@ -181,9 +200,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
         this._outputPower = value; // Integer.parseInt(value);
 
-        JSObject ret = new JSObject();
-        ret.put("value", this._outputPower);
-        call.resolve(ret);
+        call.resolve();
     }
 
     @PluginMethod()
@@ -246,11 +263,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
     private void dispose() {
         this.StopInventoryThread();
         this.disposeUHFManager();
-
-        if (this._zebraScanner != null) {
-            this._zebraScanner.stopScan();
-            this._zebraScanner = null;
-        }
+        this.disposeZebraBarcodeScanner();
 
         // if (getContext().)
         // getContext().unregisterReceiver(this._keyReceiver);
@@ -317,6 +330,22 @@ public class C9GunApiCapacitorPlugin extends Plugin {
             }
 
             this._uhfManager = null;
+        }
+    }
+
+    private void disposeZebraBarcodeScanner() {
+
+        if (this._zebraScanner != null) {
+            Log.d(TAG, "disposeZebraBarcodeScanner");
+
+            try {
+                this._zebraScanner.stopScan();
+                this._zebraScanner.close();
+            } catch (Exception e) {
+                _errorLog = e.getMessage();
+            }
+
+            this._zebraScanner = null;
         }
     }
 
@@ -436,7 +465,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
 
             Log.d(TAG, "InventoryThread starting...");
 
-            PluginCall savedCall = bridge.getSavedCall( this._callBackId );
+            PluginCall savedCall = bridge.getSavedCall(this._callBackId);
 
             if (savedCall == null) {
                 Log.d("Test", "No stored plugin call for startInventory request result");

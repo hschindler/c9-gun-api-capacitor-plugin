@@ -53,7 +53,7 @@
             "text": "1.1.0"
           }
         ],
-        "docs": "Starts Barcode inventory.",
+        "docs": "Starts Barcode inventory.\r\nParam: options: { value: 'zebra' }",
         "complexTypes": [],
         "slug": "startbarcodeinventory"
       },
@@ -73,6 +73,27 @@
         "slug": "stopbarcodeinventory"
       },
       {
+        "name": "setBarcodeTimeout",
+        "signature": "(options: { timeout: number; }) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ timeout: number; }"
+          }
+        ],
+        "returns": "any",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Set Barcode timeout.\r\nValue:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000\r\nParam: options: { timeout: number }",
+        "complexTypes": [],
+        "slug": "setbarcodetimeout"
+      },
+      {
         "name": "startInventory",
         "signature": "(options: { value: string; }) => any",
         "parameters": [
@@ -89,7 +110,7 @@
             "text": "1.0.0"
           }
         ],
-        "docs": "Starts RFID UHF inventory.",
+        "docs": "Starts RFID UHF inventory.\r\nParam: options: { value: string }",
         "complexTypes": [],
         "slug": "startinventory"
       },

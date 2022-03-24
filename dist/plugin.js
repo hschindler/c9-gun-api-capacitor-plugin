@@ -22,6 +22,9 @@ var capacitorC9GunApiCapacitorPlugin = (function (exports, core) {
             // logic here
             this.throwUnimplementedError();
         }
+        async setBarcodeTimeout() {
+            this.throwUnimplementedError();
+        }
         async startInventory() {
             // logic here
             this.throwUnimplementedError();

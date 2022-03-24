@@ -16,7 +16,7 @@ export interface C9GunApiCapacitorPlugin {
     }>;
     /**
     * Starts Barcode inventory.
-    *
+    * Param: options: { value: 'zebra' }
     * @since 1.1.0
     */
     startBarcodeInventory(options: {
@@ -31,7 +31,18 @@ export interface C9GunApiCapacitorPlugin {
     */
     stopBarcodeInventory(): Promise<boolean>;
     /**
+  * Set Barcode timeout.
+  * Value:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000
+  * Param: options: { timeout: number }
+  *
+  * @since 1.1.0
+  */
+    setBarcodeTimeout(options: {
+        timeout: number;
+    }): Promise<void>;
+    /**
     * Starts RFID UHF inventory.
+    * Param: options: { value: string }
     *
     * @since 1.0.0
     */

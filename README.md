@@ -21,6 +21,7 @@ npx cap sync
 * [`getFirmware()`](#getfirmware)
 * [`startBarcodeInventory(...)`](#startbarcodeinventory)
 * [`stopBarcodeInventory()`](#stopbarcodeinventory)
+* [`setBarcodeTimeout(...)`](#setbarcodetimeout)
 * [`startInventory(...)`](#startinventory)
 * [`stopInventory()`](#stopinventory)
 * [`setOutputPower(...)`](#setoutputpower)
@@ -71,6 +72,7 @@ startBarcodeInventory(options: { value: string; }) => any
 ```
 
 Starts Barcode inventory.
+Param: options: { value: 'zebra' }
 
 | Param         | Type                            |
 | ------------- | ------------------------------- |
@@ -98,6 +100,27 @@ Stops Barcode inventory.
 --------------------
 
 
+### setBarcodeTimeout(...)
+
+```typescript
+setBarcodeTimeout(options: { timeout: number; }) => any
+```
+
+Set Barcode timeout.
+Value:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000
+Param: options: { timeout: number }
+
+| Param         | Type                              |
+| ------------- | --------------------------------- |
+| **`options`** | <code>{ timeout: number; }</code> |
+
+**Returns:** <code>any</code>
+
+**Since:** 1.1.0
+
+--------------------
+
+
 ### startInventory(...)
 
 ```typescript
@@ -105,6 +128,7 @@ startInventory(options: { value: string; }) => any
 ```
 
 Starts RFID UHF inventory.
+Param: options: { value: string }
 
 | Param         | Type                            |
 | ------------- | ------------------------------- |
