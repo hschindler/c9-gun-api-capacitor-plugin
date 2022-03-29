@@ -37,6 +37,63 @@
         "slug": "getfirmware"
       },
       {
+        "name": "startBarcodeInventory",
+        "signature": "(options: { value: string; }) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "any",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Starts Barcode inventory.\r\nParam: options: { value: 'zebra' }",
+        "complexTypes": [],
+        "slug": "startbarcodeinventory"
+      },
+      {
+        "name": "stopBarcodeInventory",
+        "signature": "() => any",
+        "parameters": [],
+        "returns": "any",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Stops Barcode inventory.",
+        "complexTypes": [],
+        "slug": "stopbarcodeinventory"
+      },
+      {
+        "name": "setBarcodeTimeout",
+        "signature": "(options: { timeout: number; }) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ timeout: number; }"
+          }
+        ],
+        "returns": "any",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Set Barcode timeout.\r\nValue:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000\r\nParam: options: { timeout: number }",
+        "complexTypes": [],
+        "slug": "setbarcodetimeout"
+      },
+      {
         "name": "startInventory",
         "signature": "(options: { value: string; }) => any",
         "parameters": [
@@ -53,7 +110,7 @@
             "text": "1.0.0"
           }
         ],
-        "docs": "Starts RFID UHF inventory.",
+        "docs": "Starts RFID UHF inventory.\r\nParam: options: { value: string }",
         "complexTypes": [],
         "slug": "startinventory"
       },
@@ -131,12 +188,12 @@
       },
       {
         "name": "addListener",
-        "signature": "(eventName: 'scanButtonPressed', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle",
+        "signature": "(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle",
         "parameters": [
           {
             "name": "eventName",
             "docs": "",
-            "type": "\"scanButtonPressed\""
+            "type": "\"scanButtonPressed\" | \"barcodeReceived\""
           },
           {
             "name": "listenerFunc",

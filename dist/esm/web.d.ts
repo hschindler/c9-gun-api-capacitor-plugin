@@ -9,6 +9,11 @@ export declare class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9G
     getFirmware(): Promise<{
         firmware: string;
     }>;
+    startBarcodeInventory(): Promise<{
+        barcodeData: string;
+    }>;
+    stopBarcodeInventory(): Promise<boolean>;
+    setBarcodeTimeout(): Promise<void>;
     startInventory(): Promise<{
         uhfData: string[];
     }>;

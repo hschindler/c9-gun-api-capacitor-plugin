@@ -8,6 +8,17 @@ export class C9GunApiCapacitorPluginWeb extends WebPlugin {
         // logic here
         this.throwUnimplementedError();
     }
+    async startBarcodeInventory() {
+        // logic here
+        this.throwUnimplementedError();
+    }
+    async stopBarcodeInventory() {
+        // logic here
+        this.throwUnimplementedError();
+    }
+    async setBarcodeTimeout() {
+        this.throwUnimplementedError();
+    }
     async startInventory() {
         // logic here
         this.throwUnimplementedError();
