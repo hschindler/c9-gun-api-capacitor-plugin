@@ -10,6 +10,7 @@
     "android/src/main/",
     "android/build.gradle",
     "dist/",
+    "ios/Plugin/",
     "C9GunApiCapacitorPlugin.podspec"
   ],
   "author": "Heiko Schindler",
@@ -66,6 +67,9 @@
     "extends": "@ionic/eslint-config/recommended"
   },
   "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
     "android": {
       "src": "android"
     }
