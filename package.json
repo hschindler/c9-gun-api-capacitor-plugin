@@ -1,6 +1,6 @@
 {
   "name": "c9-gun-api-capacitor-plugin",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "C9 Gun Devices API Plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -43,8 +43,8 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@capacitor/android": "next",
-    "@capacitor/core": "next",
+    "@capacitor/android": "^3.4.3",
+    "@capacitor/core": "^3.4.3",
     "@capacitor/docgen": "0.0.10",
     "@ionic/eslint-config": "^0.3.0",
     "@ionic/prettier-config": "^1.0.1",
@@ -58,7 +58,7 @@
     "typescript": "~4.0.3"
   },
   "peerDependencies": {
-    "@capacitor/core": "next"
+    "@capacitor/core": "3.4.3"
   },
   "prettier": "@ionic/prettier-config",
   "swiftlint": "@ionic/swiftlint-config",
@@ -69,5 +69,8 @@
     "android": {
       "src": "android"
     }
+  },
+  "dependencies": {
+    "@capacitor/ios": "^3.4.3"
   }
 }
