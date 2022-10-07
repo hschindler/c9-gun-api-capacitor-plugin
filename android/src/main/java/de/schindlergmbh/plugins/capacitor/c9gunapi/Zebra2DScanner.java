@@ -57,7 +57,7 @@ public class Zebra2DScanner {
         this._context = context;
         this._bridge = bridge;
 
-        // this.enableScanService();
+        this.enableScanService();
 
         // Register receiver to receive the result of scan
         IntentFilter filter = new IntentFilter();
@@ -67,19 +67,19 @@ public class Zebra2DScanner {
 
     }
 
-    // /**
-    // * open scan service
-    // *
-    // * @param context Context
-    // */
-    // private void enableScanService() {
-    // Intent intent = new Intent();
-    // intent.setAction(ACTION_SCAN_INIT);
-    // this._context.sendBroadcast(intent);
+    /**
+     * open scan service
+     *
+     * @param context Context
+     */
+    private void enableScanService() {
+        Intent intent = new Intent();
+        intent.setAction(ACTION_SCAN_INIT);
+        this._context.sendBroadcast(intent);
 
-    // this.setScanMode(0);
+        this.setScanMode(0);
 
-    // }
+    }
 
     /**
      * Start Scanning

@@ -27,8 +27,9 @@ npx cap sync
 * [`setOutputPower(...)`](#setoutputpower)
 * [`getOutputPower()`](#getoutputpower)
 * [`writeEPCToTagByEPC(...)`](#writeepctotagbyepc)
-* [`addListener(...)`](#addlistener)
+* [`addListener('scanButtonPressed' | 'barcodeReceived', ...)`](#addlistenerscanbuttonpressed--barcodereceived)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
@@ -38,14 +39,14 @@ npx cap sync
 ### echo(...)
 
 ```typescript
-echo(options: { value: string; }) => any
+echo(options: { value: string; }) => Promise<{ value: string; }>
 ```
 
 | Param         | Type                            |
 | ------------- | ------------------------------- |
 | **`options`** | <code>{ value: string; }</code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
 
 --------------------
 
@@ -53,12 +54,12 @@ echo(options: { value: string; }) => any
 ### getFirmware()
 
 ```typescript
-getFirmware() => any
+getFirmware() => Promise<{ firmware: string; }>
 ```
 
 Gets RFID UHF reader firmware.
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;{ firmware: string; }&gt;</code>
 
 **Since:** 1.0.0
 
@@ -68,7 +69,7 @@ Gets RFID UHF reader firmware.
 ### startBarcodeInventory(...)
 
 ```typescript
-startBarcodeInventory(options: { value: string; }) => any
+startBarcodeInventory(options: { value: string; }) => Promise<{ barcodeData: string; }>
 ```
 
 Starts Barcode inventory.
@@ -78,7 +79,7 @@ Param: options: { value: 'zebra' }
 | ------------- | ------------------------------- |
 | **`options`** | <code>{ value: string; }</code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;{ barcodeData: string; }&gt;</code>
 
 **Since:** 1.1.0
 
@@ -88,12 +89,12 @@ Param: options: { value: 'zebra' }
 ### stopBarcodeInventory()
 
 ```typescript
-stopBarcodeInventory() => any
+stopBarcodeInventory() => Promise<boolean>
 ```
 
 Stops Barcode inventory.
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;boolean&gt;</code>
 
 **Since:** 1.1.0
 
@@ -103,7 +104,7 @@ Stops Barcode inventory.
 ### setBarcodeTimeout(...)
 
 ```typescript
-setBarcodeTimeout(options: { timeout: number; }) => any
+setBarcodeTimeout(options: { timeout: number; }) => Promise<void>
 ```
 
 Set Barcode timeout.
@@ -114,8 +115,6 @@ Param: options: { timeout: number }
 | ------------- | --------------------------------- |
 | **`options`** | <code>{ timeout: number; }</code> |
 
-**Returns:** <code>any</code>
-
 **Since:** 1.1.0
 
 --------------------
@@ -124,7 +123,7 @@ Param: options: { timeout: number }
 ### startInventory(...)
 
 ```typescript
-startInventory(options: { value: string; }) => any
+startInventory(options: { value: string; }) => Promise<{ uhfData: string[]; }>
 ```
 
 Starts RFID UHF inventory.
@@ -134,7 +133,7 @@ Param: options: { value: string }
 | ------------- | ------------------------------- |
 | **`options`** | <code>{ value: string; }</code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;{ uhfData: string[]; }&gt;</code>
 
 **Since:** 1.0.0
 
@@ -144,12 +143,12 @@ Param: options: { value: string }
 ### stopInventory()
 
 ```typescript
-stopInventory() => any
+stopInventory() => Promise<boolean>
 ```
 
 Stops RFID UHF inventory.
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;boolean&gt;</code>
 
 **Since:** 1.0.0
 
@@ -159,7 +158,7 @@ Stops RFID UHF inventory.
 ### setOutputPower(...)
 
 ```typescript
-setOutputPower(options: { value: number; }) => any
+setOutputPower(options: { value: number; }) => Promise<void>
 ```
 
 Sets RFID UHF output power.
@@ -167,8 +166,6 @@ Sets RFID UHF output power.
 | Param         | Type                            |
 | ------------- | ------------------------------- |
 | **`options`** | <code>{ value: number; }</code> |
-
-**Returns:** <code>any</code>
 
 **Since:** 1.0.0
 
@@ -178,12 +175,12 @@ Sets RFID UHF output power.
 ### getOutputPower()
 
 ```typescript
-getOutputPower() => any
+getOutputPower() => Promise<number>
 ```
 
 Sets RFID UHF output power.
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;number&gt;</code>
 
 **Since:** 1.0.0
 
@@ -193,7 +190,7 @@ Sets RFID UHF output power.
 ### writeEPCToTagByEPC(...)
 
 ```typescript
-writeEPCToTagByEPC(options: { filteredTagEPC: string; newEPC: string; }) => any
+writeEPCToTagByEPC(options: { filteredTagEPC: string; newEPC: string; }) => Promise<boolean>
 ```
 
 Write EPC to Tag by selected EPC.
@@ -202,14 +199,14 @@ Write EPC to Tag by selected EPC.
 | ------------- | -------------------------------------------------------- |
 | **`options`** | <code>{ filteredTagEPC: string; newEPC: string; }</code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;boolean&gt;</code>
 
 **Since:** 1.0.0
 
 --------------------
 
 
-### addListener(...)
+### addListener('scanButtonPressed' | 'barcodeReceived', ...)
 
 ```typescript
 addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle
@@ -217,12 +214,12 @@ addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: Sc
 
 Listen for scanButtonPressed
 
-| Param              | Type                                                  |
-| ------------------ | ----------------------------------------------------- |
-| **`eventName`**    | <code>"scanButtonPressed" \| "barcodeReceived"</code> |
-| **`listenerFunc`** | <code>(keyCode: { value: string; }) =&gt; void</code> |
+| Param              | Type                                                                            |
+| ------------------ | ------------------------------------------------------------------------------- |
+| **`eventName`**    | <code>'scanButtonPressed' \| 'barcodeReceived'</code>                           |
+| **`listenerFunc`** | <code><a href="#scanbuttonpressedlistener">ScanButtonPressedListener</a></code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
 
 **Since:** 1.0.0
 
@@ -234,9 +231,17 @@ Listen for scanButtonPressed
 
 #### PluginListenerHandle
 
-| Prop         | Type                      |
-| ------------ | ------------------------- |
-| **`remove`** | <code>() =&gt; any</code> |
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+
+### Type Aliases
+
+
+#### ScanButtonPressedListener
+
+<code>(keyCode: { value: string; }): void</code>
 
 </docgen-api>
 

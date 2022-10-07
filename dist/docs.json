@@ -7,7 +7,7 @@
     "methods": [
       {
         "name": "echo",
-        "signature": "(options: { value: string; }) => any",
+        "signature": "(options: { value: string; }) => Promise<{ value: string; }>",
         "parameters": [
           {
             "name": "options",
@@ -15,7 +15,7 @@
             "type": "{ value: string; }"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<{ value: string; }>",
         "tags": [],
         "docs": "",
         "complexTypes": [],
@@ -23,9 +23,9 @@
       },
       {
         "name": "getFirmware",
-        "signature": "() => any",
+        "signature": "() => Promise<{ firmware: string; }>",
         "parameters": [],
-        "returns": "any",
+        "returns": "Promise<{ firmware: string; }>",
         "tags": [
           {
             "name": "since",
@@ -38,7 +38,7 @@
       },
       {
         "name": "startBarcodeInventory",
-        "signature": "(options: { value: string; }) => any",
+        "signature": "(options: { value: string; }) => Promise<{ barcodeData: string; }>",
         "parameters": [
           {
             "name": "options",
@@ -46,7 +46,7 @@
             "type": "{ value: string; }"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<{ barcodeData: string; }>",
         "tags": [
           {
             "name": "since",
@@ -59,9 +59,9 @@
       },
       {
         "name": "stopBarcodeInventory",
-        "signature": "() => any",
+        "signature": "() => Promise<boolean>",
         "parameters": [],
-        "returns": "any",
+        "returns": "Promise<boolean>",
         "tags": [
           {
             "name": "since",
@@ -74,7 +74,7 @@
       },
       {
         "name": "setBarcodeTimeout",
-        "signature": "(options: { timeout: number; }) => any",
+        "signature": "(options: { timeout: number; }) => Promise<void>",
         "parameters": [
           {
             "name": "options",
@@ -82,7 +82,7 @@
             "type": "{ timeout: number; }"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<void>",
         "tags": [
           {
             "name": "since",
@@ -95,7 +95,7 @@
       },
       {
         "name": "startInventory",
-        "signature": "(options: { value: string; }) => any",
+        "signature": "(options: { value: string; }) => Promise<{ uhfData: string[]; }>",
         "parameters": [
           {
             "name": "options",
@@ -103,7 +103,7 @@
             "type": "{ value: string; }"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<{ uhfData: string[]; }>",
         "tags": [
           {
             "name": "since",
@@ -116,9 +116,9 @@
       },
       {
         "name": "stopInventory",
-        "signature": "() => any",
+        "signature": "() => Promise<boolean>",
         "parameters": [],
-        "returns": "any",
+        "returns": "Promise<boolean>",
         "tags": [
           {
             "name": "since",
@@ -131,7 +131,7 @@
       },
       {
         "name": "setOutputPower",
-        "signature": "(options: { value: number; }) => any",
+        "signature": "(options: { value: number; }) => Promise<void>",
         "parameters": [
           {
             "name": "options",
@@ -139,7 +139,7 @@
             "type": "{ value: number; }"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<void>",
         "tags": [
           {
             "name": "since",
@@ -152,9 +152,9 @@
       },
       {
         "name": "getOutputPower",
-        "signature": "() => any",
+        "signature": "() => Promise<number>",
         "parameters": [],
-        "returns": "any",
+        "returns": "Promise<number>",
         "tags": [
           {
             "name": "since",
@@ -167,7 +167,7 @@
       },
       {
         "name": "writeEPCToTagByEPC",
-        "signature": "(options: { filteredTagEPC: string; newEPC: string; }) => any",
+        "signature": "(options: { filteredTagEPC: string; newEPC: string; }) => Promise<boolean>",
         "parameters": [
           {
             "name": "options",
@@ -175,7 +175,7 @@
             "type": "{ filteredTagEPC: string; newEPC: string; }"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<boolean>",
         "tags": [
           {
             "name": "since",
@@ -193,15 +193,15 @@
           {
             "name": "eventName",
             "docs": "",
-            "type": "\"scanButtonPressed\" | \"barcodeReceived\""
+            "type": "'scanButtonPressed' | 'barcodeReceived'"
           },
           {
             "name": "listenerFunc",
             "docs": "",
-            "type": "(keyCode: { value: string; }) => void"
+            "type": "ScanButtonPressedListener"
           }
         ],
-        "returns": "any",
+        "returns": "Promise<PluginListenerHandle> & PluginListenerHandle",
         "tags": [
           {
             "name": "since",
@@ -210,10 +210,10 @@
         ],
         "docs": "Listen for scanButtonPressed",
         "complexTypes": [
-          "ScanButtonPressedListener",
-          "PluginListenerHandle"
+          "PluginListenerHandle",
+          "ScanButtonPressedListener"
         ],
-        "slug": "addlistener"
+        "slug": "addlistenerscanbuttonpressed--barcodereceived"
       }
     ],
     "properties": []
@@ -231,10 +231,24 @@
           "tags": [],
           "docs": "",
           "complexTypes": [],
-          "type": "() => any"
+          "type": "() => Promise<void>"
         }
       ]
     }
   ],
-  "enums": []
+  "enums": [],
+  "typeAliases": [
+    {
+      "name": "ScanButtonPressedListener",
+      "slug": "scanbuttonpressedlistener",
+      "docs": "",
+      "types": [
+        {
+          "text": "(keyCode: { value: string; }): void",
+          "complexTypes": []
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
 }
