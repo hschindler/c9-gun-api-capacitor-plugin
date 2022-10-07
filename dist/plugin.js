@@ -63,5 +63,5 @@ var capacitorC9GunApiCapacitorPlugin = (function (exports, core) {
 
     return exports;
 
-}({}, capacitorExports));
+})({}, capacitorExports);
 //# sourceMappingURL=plugin.js.map
