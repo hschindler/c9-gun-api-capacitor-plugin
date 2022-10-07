@@ -51,18 +51,23 @@ class KeyReceiver extends BroadcastReceiver {
 
                     break;
                 case KeyEvent.KEYCODE_F3:
+                    // 133 - left C9 Black Button
+                    this._onReceiveCallback.onReceiveCallback("scanButtonPressed", "133");
                     break;
-                
+
                 case KeyEvent.KEYCODE_F4:
+                    // C9 Gun Button
                     this._onReceiveCallback.onReceiveCallback("scanButtonPressed", null);
                     // this.showToast("scan clicked");
-                    // PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "scan clicked");
+                    // PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "scan
+                    // clicked");
                     // pluginResult.setKeepCallback(true);
                     // _scanKeyCallBackContext.sendPluginResult(pluginResult);
-        
+
                     break;
                 case KeyEvent.KEYCODE_F5:
-
+                    // 135 - right C9 Black Button
+                    this._onReceiveCallback.onReceiveCallback("scanButtonPressed", "135");
                     break;
             }
         }
@@ -70,13 +75,13 @@ class KeyReceiver extends BroadcastReceiver {
     }
 
     // private void showToast(String text) {
-    //     if (toast == null) {
-    //         toast = Toast.makeText(this._context, text,
-    //                 Toast.LENGTH_SHORT);
-    //     } else {
-    //         toast.setText(text);
-    //     }
+    // if (toast == null) {
+    // toast = Toast.makeText(this._context, text,
+    // Toast.LENGTH_SHORT);
+    // } else {
+    // toast.setText(text);
+    // }
 
-    //     toast.show();
+    // toast.show();
     // }
 }
