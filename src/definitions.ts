@@ -1,6 +1,6 @@
 import type { PluginListenerHandle } from '@capacitor/core';
 
-export type ScanButtonPressedListener = () => void;
+export type ScanButtonPressedListener = (keyCode: { value: string }) => void;
 
 export interface C9GunApiCapacitorPlugin {
   echo(options: { value: string }): Promise<{ value: string }>;

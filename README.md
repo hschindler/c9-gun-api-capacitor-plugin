@@ -220,7 +220,7 @@ Listen for scanButtonPressed
 | Param              | Type                                                  |
 | ------------------ | ----------------------------------------------------- |
 | **`eventName`**    | <code>"scanButtonPressed" \| "barcodeReceived"</code> |
-| **`listenerFunc`** | <code>() =&gt; void</code>                            |
+| **`listenerFunc`** | <code>(keyCode: { value: string; }) =&gt; void</code> |
 
 **Returns:** <code>any</code>
 

@@ -357,7 +357,7 @@ public class C9GunApiCapacitorPlugin extends Plugin {
     class CallBackImpl implements ReceiverCallback { // class that implements the method to callback defined in the
                                                      // interface
         public void onReceiveCallback(String eventName, String value) {
-            System.out.println("I've been called back");
+            System.out.println("I've been called back - value=" + value);
 
             Optional<String> ln = ofNullable(value);
 
