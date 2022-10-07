@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-
-
 public class Zebra2DScanner {
 
     /**
@@ -37,7 +35,8 @@ public class Zebra2DScanner {
      */
     private final String ACTION_CLOSE_SCAN = "com.rfid.CLOSE_SCAN";
     /**
-     * Scan result output mode, 0 -- BroadcastReceiver mode; 1 -- Focus input mode (default)
+     * Scan result output mode, 0 -- BroadcastReceiver mode; 1 -- Focus input mode
+     * (default)
      */
     private final String ACTION_SET_SCAN_MODE = "com.rfid.SET_SCAN_MODE";
     /**
@@ -58,9 +57,9 @@ public class Zebra2DScanner {
         this._context = context;
         this._bridge = bridge;
 
-        this.enableScanService();
+        // this.enableScanService();
 
-        //Register receiver to receive the result of scan
+        // Register receiver to receive the result of scan
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.rfid.SCAN");
 
@@ -68,20 +67,19 @@ public class Zebra2DScanner {
 
     }
 
+    // /**
+    // * open scan service
+    // *
+    // * @param context Context
+    // */
+    // private void enableScanService() {
+    // Intent intent = new Intent();
+    // intent.setAction(ACTION_SCAN_INIT);
+    // this._context.sendBroadcast(intent);
 
+    // this.setScanMode(0);
 
-    /**
-     * open scan service
-     * @param context Context
-     */
-    private void enableScanService() {
-        Intent intent = new Intent();
-        intent.setAction(ACTION_SCAN_INIT);
-        this._context.sendBroadcast(intent);
-
-        this.setScanMode(0);
-
-    }
+    // }
 
     /**
      * Start Scanning
@@ -105,6 +103,7 @@ public class Zebra2DScanner {
 
     /**
      * Set the scan result output mode
+     * 
      * @param mode 0 -- BroadcastReceiver mode; 1 -- Focus input mode (default)
      */
     public void setScanMode(int mode) {
@@ -119,22 +118,22 @@ public class Zebra2DScanner {
      */
     public void close() {
         Intent toKillService = new Intent();
-//        toKillService.putExtra("iscamera", true);
+        // toKillService.putExtra("iscamera", true);
         toKillService.setAction(ACTION_CLOSE_SCAN);
         this._context.sendBroadcast(toKillService);
     }
 
     /**
      * Set scan timeout
+     * 
      * @param timeout Value:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000
      */
-    public void setTimeout(String timeout){
+    public void setTimeout(String timeout) {
         Intent intent = new Intent();
         intent.setAction(ACTION_SCAN_TIME);
         intent.putExtra("time", timeout);
         this._context.sendBroadcast(intent);
     }
-
 
     // BroadcastReceiver to receiver scan data
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -143,10 +142,10 @@ public class Zebra2DScanner {
         public void onReceive(Context context, Intent intent) {
             byte[] data = intent.getByteArrayExtra("data");
             if (data != null) {
-                //String barcode = Tools.Bytes2HexString(data, data.length);
+                // String barcode = Tools.Bytes2HexString(data, data.length);
                 String barcode = new String(data);
 
-                PluginCall call =_bridge.getSavedCall(_callBackId);
+                PluginCall call = _bridge.getSavedCall(_callBackId);
 
                 if (call != null) {
 
@@ -158,36 +157,37 @@ public class Zebra2DScanner {
                 }
 
                 /*
-                //first add
-                if (setBarcode.isEmpty()) {
-                    setBarcode.add(barcode);
-                    listBarcode = new ArrayList<>();
-                    Barcode b = new Barcode();
-                    b.sn = 1;
-                    b.barcode = barcode;
-                    b.count = 1;
-                    listBarcode.add(b);
-                    //list index
-                    mapBarcode.put(barcode, 0);
-                    //adapter = new MAdapter();
-                    //lv.setAdapter(adapter);
-                } else {
-                    if (setBarcode.contains(barcode)) {
-                        Barcode b = listBarcode.get(mapBarcode.get(barcode));
-                        b.count += 1;
-                        listBarcode.set(mapBarcode.get(barcode), b);
-
-                    } else {
-                        Barcode b = new Barcode();
-                        b.sn = listBarcode.size();
-                        b.barcode = barcode;
-                        b.count = 1;
-                        listBarcode.add(b);
-                        setBarcode.add(barcode);
-                        //list index
-                        mapBarcode.put(barcode, listBarcode.size() - 1);
-                    }
-                }*/
+                 * //first add
+                 * if (setBarcode.isEmpty()) {
+                 * setBarcode.add(barcode);
+                 * listBarcode = new ArrayList<>();
+                 * Barcode b = new Barcode();
+                 * b.sn = 1;
+                 * b.barcode = barcode;
+                 * b.count = 1;
+                 * listBarcode.add(b);
+                 * //list index
+                 * mapBarcode.put(barcode, 0);
+                 * //adapter = new MAdapter();
+                 * //lv.setAdapter(adapter);
+                 * } else {
+                 * if (setBarcode.contains(barcode)) {
+                 * Barcode b = listBarcode.get(mapBarcode.get(barcode));
+                 * b.count += 1;
+                 * listBarcode.set(mapBarcode.get(barcode), b);
+                 * 
+                 * } else {
+                 * Barcode b = new Barcode();
+                 * b.sn = listBarcode.size();
+                 * b.barcode = barcode;
+                 * b.count = 1;
+                 * listBarcode.add(b);
+                 * setBarcode.add(barcode);
+                 * //list index
+                 * mapBarcode.put(barcode, listBarcode.size() - 1);
+                 * }
+                 * }
+                 */
 
                 // _receiveCallback.onReceiveCallback("barcodeReceived", barcode);
 
