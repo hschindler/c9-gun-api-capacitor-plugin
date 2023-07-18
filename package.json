@@ -76,6 +76,6 @@
     }
   },
   "dependencies": {
-    "@capacitor/ios": "^3.4.3"
+    "@capacitor/ios": "^4.3.0"
   }
 }
