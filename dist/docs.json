@@ -1,0 +1,254 @@
+{
+  "api": {
+    "name": "C9GunApiCapacitorPlugin",
+    "slug": "c9gunapicapacitorplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "echo",
+        "signature": "(options: { value: string; }) => Promise<{ value: string; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "Promise<{ value: string; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "echo"
+      },
+      {
+        "name": "getFirmware",
+        "signature": "() => Promise<{ firmware: string; }>",
+        "parameters": [],
+        "returns": "Promise<{ firmware: string; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Gets RFID UHF reader firmware.",
+        "complexTypes": [],
+        "slug": "getfirmware"
+      },
+      {
+        "name": "startBarcodeInventory",
+        "signature": "(options: { value: string; }) => Promise<{ barcodeData: string; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "Promise<{ barcodeData: string; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Starts Barcode inventory.\r\nParam: options: { value: 'zebra' }",
+        "complexTypes": [],
+        "slug": "startbarcodeinventory"
+      },
+      {
+        "name": "stopBarcodeInventory",
+        "signature": "() => Promise<boolean>",
+        "parameters": [],
+        "returns": "Promise<boolean>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Stops Barcode inventory.",
+        "complexTypes": [],
+        "slug": "stopbarcodeinventory"
+      },
+      {
+        "name": "setBarcodeTimeout",
+        "signature": "(options: { timeout: number; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ timeout: number; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.1.0"
+          }
+        ],
+        "docs": "Set Barcode timeout.\r\nValue:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000\r\nParam: options: { timeout: number }",
+        "complexTypes": [],
+        "slug": "setbarcodetimeout"
+      },
+      {
+        "name": "startInventory",
+        "signature": "(options: { value: string; }) => Promise<{ uhfData: string[]; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "Promise<{ uhfData: string[]; }>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Starts RFID UHF inventory.\r\nParam: options: { value: string }",
+        "complexTypes": [],
+        "slug": "startinventory"
+      },
+      {
+        "name": "stopInventory",
+        "signature": "() => Promise<boolean>",
+        "parameters": [],
+        "returns": "Promise<boolean>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Stops RFID UHF inventory.",
+        "complexTypes": [],
+        "slug": "stopinventory"
+      },
+      {
+        "name": "setOutputPower",
+        "signature": "(options: { value: number; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: number; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Sets RFID UHF output power.",
+        "complexTypes": [],
+        "slug": "setoutputpower"
+      },
+      {
+        "name": "getOutputPower",
+        "signature": "() => Promise<number>",
+        "parameters": [],
+        "returns": "Promise<number>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Sets RFID UHF output power.",
+        "complexTypes": [],
+        "slug": "getoutputpower"
+      },
+      {
+        "name": "writeEPCToTagByEPC",
+        "signature": "(options: { filteredTagEPC: string; newEPC: string; }) => Promise<boolean>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ filteredTagEPC: string; newEPC: string; }"
+          }
+        ],
+        "returns": "Promise<boolean>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Write EPC to Tag by selected EPC.",
+        "complexTypes": [],
+        "slug": "writeepctotagbyepc"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'scanButtonPressed' | 'barcodeReceived'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "ScanButtonPressedListener"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle> & PluginListenerHandle",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Listen for scanButtonPressed",
+        "complexTypes": [
+          "PluginListenerHandle",
+          "ScanButtonPressedListener"
+        ],
+        "slug": "addlistenerscanbuttonpressed--barcodereceived"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "PluginListenerHandle",
+      "slug": "pluginlistenerhandle",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "remove",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "() => Promise<void>"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [
+    {
+      "name": "ScanButtonPressedListener",
+      "slug": "scanbuttonpressedlistener",
+      "docs": "",
+      "types": [
+        {
+          "text": "(keyCode: { value: string; }): void",
+          "complexTypes": []
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
+}
