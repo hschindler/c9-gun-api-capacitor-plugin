@@ -1,6 +1,6 @@
 {
   "name": "c9-gun-api-capacitor-plugin",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "C9 Gun Devices API Plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
