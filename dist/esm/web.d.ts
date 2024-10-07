@@ -1,5 +1,5 @@
-import { WebPlugin } from '@capacitor/core';
-import type { C9GunApiCapacitorPlugin } from './definitions';
+import { PluginListenerHandle, WebPlugin } from '@capacitor/core';
+import type { C9GunApiCapacitorPlugin, ScanButtonPressedListener } from './definitions';
 export declare class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9GunApiCapacitorPlugin {
     echo(options: {
         value: string;
@@ -21,5 +21,6 @@ export declare class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9G
     setOutputPower(): Promise<void>;
     getOutputPower(): Promise<number>;
     writeEPCToTagByEPC(): Promise<boolean>;
+    addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener): Promise<PluginListenerHandle>;
     private throwUnimplementedError;
 }
