@@ -188,7 +188,7 @@
       },
       {
         "name": "addListener",
-        "signature": "(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle",
+        "signature": "(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle>",
         "parameters": [
           {
             "name": "eventName",
@@ -201,7 +201,7 @@
             "type": "ScanButtonPressedListener"
           }
         ],
-        "returns": "Promise<PluginListenerHandle> & PluginListenerHandle",
+        "returns": "Promise<PluginListenerHandle>",
         "tags": [
           {
             "name": "since",
@@ -213,7 +213,7 @@
           "PluginListenerHandle",
           "ScanButtonPressedListener"
         ],
-        "slug": "addlistenerscanbuttonpressed--barcodereceived"
+        "slug": "addlistenerscanbuttonpressed--barcodereceived-"
       }
     ],
     "properties": []

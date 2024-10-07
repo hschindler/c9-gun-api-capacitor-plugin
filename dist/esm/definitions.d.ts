@@ -9,75 +9,75 @@ export interface C9GunApiCapacitorPlugin {
         value: string;
     }>;
     /**
-    * Gets RFID UHF reader firmware.
-    *
-    * @since 1.0.0
-    */
+     * Gets RFID UHF reader firmware.
+     *
+     * @since 1.0.0
+     */
     getFirmware(): Promise<{
         firmware: string;
     }>;
     /**
-    * Starts Barcode inventory.
-    * Param: options: { value: 'zebra' }
-    * @since 1.1.0
-    */
+     * Starts Barcode inventory.
+     * Param: options: { value: 'zebra' }
+     * @since 1.1.0
+     */
     startBarcodeInventory(options: {
         value: string;
     }): Promise<{
         barcodeData: string;
     }>;
     /**
-    * Stops Barcode inventory.
-    *
-    * @since 1.1.0
-    */
+     * Stops Barcode inventory.
+     *
+     * @since 1.1.0
+     */
     stopBarcodeInventory(): Promise<boolean>;
     /**
-  * Set Barcode timeout.
-  * Value:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000
-  * Param: options: { timeout: number }
-  *
-  * @since 1.1.0
-  */
+     * Set Barcode timeout.
+     * Value:1000,2000,3000,4000,5000(default),6000,7000,8000,9000,10000
+     * Param: options: { timeout: number }
+     *
+     * @since 1.1.0
+     */
     setBarcodeTimeout(options: {
         timeout: number;
     }): Promise<void>;
     /**
-    * Starts RFID UHF inventory.
-    * Param: options: { value: string }
-    *
-    * @since 1.0.0
-    */
+     * Starts RFID UHF inventory.
+     * Param: options: { value: string }
+     *
+     * @since 1.0.0
+     */
     startInventory(options: {
         value: string;
     }): Promise<{
         uhfData: string[];
     }>;
     /**
-    * Stops RFID UHF inventory.
-    *
-    * @since 1.0.0
-    */
+     * Stops RFID UHF inventory.
+     *
+     * @since 1.0.0
+     */
     stopInventory(): Promise<boolean>;
     /**
-    * Sets RFID UHF output power.
-    *
-    * @since 1.0.0
-    */
+     * Sets RFID UHF output power.
+     *
+     * @since 1.0.0
+     */
     setOutputPower(options: {
         value: number;
     }): Promise<void>;
     /**
-    * Sets RFID UHF output power.
-    *
-    * @since 1.0.0
-    */
+     * Sets RFID UHF output power.
+     *
+     * @since 1.0.0
+     */
     getOutputPower(): Promise<number>;
     /**
-    * Write EPC to Tag by selected EPC.
-    *
-    * @since 1.0.0
-    */
+     * Write EPC to Tag by selected EPC.
+     *
+     * @since 1.0.0
+     */
     writeEPCToTagByEPC(options: {
         filteredTagEPC: string;
         newEPC: string;
@@ -87,5 +87,5 @@ export interface C9GunApiCapacitorPlugin {
      *
      * @since 1.0.0
      */
-    addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener): Promise<PluginListenerHandle> & PluginListenerHandle;
+    addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener): Promise<PluginListenerHandle>;
 }

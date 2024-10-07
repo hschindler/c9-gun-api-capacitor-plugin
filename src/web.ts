@@ -1,6 +1,6 @@
-import { WebPlugin } from '@capacitor/core';
+import { PluginListenerHandle, WebPlugin } from '@capacitor/core';
 
-import type { C9GunApiCapacitorPlugin } from './definitions';
+import type { C9GunApiCapacitorPlugin, ScanButtonPressedListener } from './definitions';
 
 export class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9GunApiCapacitorPlugin {
   async echo(options: { value: string }): Promise<{ value: string }> {
@@ -52,6 +52,14 @@ export class C9GunApiCapacitorPluginWeb extends WebPlugin implements C9GunApiCap
     this.throwUnimplementedError();
   }
 
+  async addListener(
+    eventName: 'scanButtonPressed' | 'barcodeReceived',
+    listenerFunc: ScanButtonPressedListener,
+  ): Promise<PluginListenerHandle> {
+    console.log('eventName:', eventName);
+    console.log('listenerFunc:', listenerFunc);
+    this.throwUnimplementedError();
+  }
 
   private throwUnimplementedError(): never {
     throw this.unimplemented('Not implemented on web.');

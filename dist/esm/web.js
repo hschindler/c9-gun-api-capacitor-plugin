@@ -39,6 +39,11 @@ export class C9GunApiCapacitorPluginWeb extends WebPlugin {
         // logic here
         this.throwUnimplementedError();
     }
+    async addListener(eventName, listenerFunc) {
+        console.log('eventName:', eventName);
+        console.log('listenerFunc:', listenerFunc);
+        this.throwUnimplementedError();
+    }
     throwUnimplementedError() {
         throw this.unimplemented('Not implemented on web.');
     }

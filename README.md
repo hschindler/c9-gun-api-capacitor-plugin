@@ -27,7 +27,7 @@ npx cap sync
 * [`setOutputPower(...)`](#setoutputpower)
 * [`getOutputPower()`](#getoutputpower)
 * [`writeEPCToTagByEPC(...)`](#writeepctotagbyepc)
-* [`addListener('scanButtonPressed' | 'barcodeReceived', ...)`](#addlistenerscanbuttonpressed--barcodereceived)
+* [`addListener('scanButtonPressed' | 'barcodeReceived', ...)`](#addlistenerscanbuttonpressed--barcodereceived-)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -209,7 +209,7 @@ Write EPC to Tag by selected EPC.
 ### addListener('scanButtonPressed' | 'barcodeReceived', ...)
 
 ```typescript
-addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'scanButtonPressed' | 'barcodeReceived', listenerFunc: ScanButtonPressedListener) => Promise<PluginListenerHandle>
 ```
 
 Listen for scanButtonPressed
@@ -219,7 +219,7 @@ Listen for scanButtonPressed
 | **`eventName`**    | <code>'scanButtonPressed' \| 'barcodeReceived'</code>                           |
 | **`listenerFunc`** | <code><a href="#scanbuttonpressedlistener">ScanButtonPressedListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 1.0.0
 
